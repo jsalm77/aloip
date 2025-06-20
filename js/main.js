@@ -1,6 +1,5 @@
 // ===== Firebase Configuration =====
 const firebaseConfig = {
-const firebaseConfig = {
   apiKey: "AIzaSyAaNGTCdQVnF7hqLD3irngJQquHRK8vCXk",
   authDomain: "fc-wolves-app.firebaseapp.com",
   databaseURL: "https://fc-wolves-app-default-rtdb.europe-west1.firebasedatabase.app",
@@ -159,7 +158,79 @@ async function pushData(path, data) {
     // Fallback to localStorage with generated ID
     const id = generateId();
     const existingData = getFromLocalStorage(path.replace('/', '_')) || {};
+    existingDa id = generateId();
+    const existingData = getFromLocalStorage(path.replace('/', '_')) || {};
     existingData[id] = data;
+    saveToLocalStorage(path.replace('/', '_'), existingData);
+    return id;
+}
+
+// ===== Notification Functions =====
+
+function createNotification(title, message, type = 'info') {
+    const notification = {
+        id: generateId(),
+        title,
+        message,
+        type,
+        timestamp: new Date().toISOString(),
+        read: false
+    };
+    
+    // Save notification
+    const notifications = getFromLocalStorage('notifications') || [];
+    notifications.unshift(notification);
+    saveToLocalStorage('notifications', notifications);
+    
+    // Save to Firebase
+    if (db) {
+        db.ref('notifications').child(notification.id).set(notification);
+    }
+    
+    return notification;
+}
+
+function showNotificationPopup(title, message, type = 'info') {
+    const popup = document.createElement('div');
+    popup.className = `notification-popup ${type}`;
+    popup.innerHTML = `
+        <div class="notification-content">
+            <h4>${title}</h4>
+            <p>${message}</p>
+            <button onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(popup);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (popup.parentElement) {
+            popup.remove();
+        }
+    }, 5000);
+}
+
+// ===== Export functions for use in other files =====
+window.FCWolvesUtils = {
+    showMessage,
+    showLoading,
+    formatDate,
+    generateId,
+    saveToLocalStorage,
+    getFromLocalStorage,
+    validateAccessCode,
+    logout,
+    saveData,
+    loadData,
+    pushData,
+    createNotification,
+    showNotificationPopup,
+    firebaseConfig,
+    db
+};ta[id] = data;
     saveToLocalStorage(path.replace('/', '_'), existingData);
     return id;
 }
