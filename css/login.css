@@ -1,0 +1,192 @@
+/* ===== Login Page Styles ===== */
+
+/* Animated Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(30, 58, 138, 0.1) 0%, transparent 50%);
+    animation: backgroundMove 20s ease-in-out infinite;
+    z-index: -1;
+}
+
+/* Particles */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--electric-blue);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+/* Login Container */
+.login-container {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    border: 2px solid rgba(59, 130, 246, 0.3);
+    padding: 40px;
+    text-align: center;
+    box-shadow: var(--shadow-glow);
+    max-width: 450px;
+    width: 90%;
+    position: relative;
+    overflow: hidden;
+    animation: slideIn 0.8s ease-out;
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(245, 158, 11, 0.1));
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.login-container:hover::before {
+    opacity: 1;
+}
+
+/* Team Logo */
+.team-logo {
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.team-logo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--gold);
+    box-shadow: var(--shadow-gold);
+    transition: var(--transition);
+    animation: logoGlow 3s ease-in-out infinite;
+}
+
+.team-logo img:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Team Name */
+.team-name {
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.team-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+}
+
+.team-slogan {
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 40px;
+    font-weight: 500;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+}
+
+/* Login Form */
+.login-form {
+    position: relative;
+    z-index: 1;
+}
+
+/* Login Info */
+.login-info {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.login-info p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.login-info i {
+    color: var(--electric-blue);
+}
+
+/* Responsive Design for Login */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+
+    .team-name {
+        font-size: 2rem;
+    }
+
+    .team-subtitle {
+        font-size: 1rem;
+    }
+
+    .team-logo img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 25px 15px;
+    }
+
+    .team-name {
+        font-size: 1.8rem;
+    }
+
+    .input-field, .btn {
+        padding: 12px 15px;
+        font-size: 1rem;
+    }
+}
+
