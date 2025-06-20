@@ -1,12 +1,14 @@
 // ===== Firebase Configuration =====
 const firebaseConfig = {
-    apiKey: "AIzaSyBUip9Y8Bo2Mp526aYvRAamFFmmzcDkKW0",
-    authDomain: "fc-wolves-team-app.firebaseapp.com",
-    databaseURL: "https://fc-wolves-team-app-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "fc-wolves-team-app",
-    storageBucket: "fc-wolves-team-app.firebasestorage.app",
-    messagingSenderId: "21060232227",
-    appId: "1:21060232227:web:fc79467f3d299e070e7d96"
+const firebaseConfig = {
+  apiKey: "AIzaSyAaNGTCdQVnF7hqLD3irngJQquHRK8vCXk",
+  authDomain: "fc-wolves-app.firebaseapp.com",
+  databaseURL: "https://fc-wolves-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "fc-wolves-app",
+  storageBucket: "fc-wolves-app.appspot.com",
+  messagingSenderId: "1052697954397",
+  appId: "1:1052697954397:web:7266d638b753093c94e5b4"
+};
 };
 
 // Initialize Firebase
