@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Wolves - لوحة تحكم المدرب</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    
+    <!-- Arabic Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --electric-blue: #3b82f6;
+            --gold: #f59e0b;
+            --dark-gold: #d97706;
+            --silver: #e5e7eb;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(30, 58, 138, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --text-light: #f8fafc;
+            --text-dark: #1e293b;
+            --gradient-primary: linear-gradient(135deg, #1e3a8a, #3b82f6, #f59e0b);
+            --gradient-secondary: linear-gradient(45deg, #0f172a, #1e3a8a);
+            --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.3);
+            --shadow-gold: 0 0 20px rgba(245, 158, 11, 0.4);
+            --border-radius: 15px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background: var(--gradient-secondary);
+            min-height: 100vh;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-section img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Admin Cards Grid */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .admin-card {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            padding: 30px;
+            box-shadow: var(--shadow-glow);
+            transition: var(--transition);
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            color: var(--electric-blue);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--border-radius);
+            color: var(--text-light);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-full {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Players List */
+        .players-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .player-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .player-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .player-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+        }
+
+        .player-details h4 {
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .player-details p {
+            color: var(--text-light);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .player-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+
+        /* Messages */
+        .message {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .message.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            color: #6ee7b7;
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: var(--text-light);
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid var(--electric-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            .admin-card {
+                padding: 20px;
+            }
+
+            .player-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .player-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="logo.png" alt="FC Wolves">
+                <h1 class="header-title">لوحة تحكم المدرب - FC Wolves</h1>
+            </div>
+            <a href="index.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                تسجيل الخروج
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Success/Error Messages -->
+        <div id="successMessage" class="message success">
+            <i class="fas fa-check-circle"></i>
+            <span id="successText"></span>
+        </div>
+        
+        <div id="errorMessage" class="message error">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="errorText"></span>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>جاري التحميل...</p>
+        </div>
+
+        <!-- Admin Cards Grid -->
+        <div class="admin-grid">
+            <!-- Add Player Card -->
+            <div class="admin-card">
+                <h3 class="card-title">
+                    <i class="fas fa-user-plus"></i>
+                    إضافة لاعب جديد
+                </h3>
+                
+                <form id="addPlayerForm">
+                    <div class="form-group">
+                        <label class="form-label">اسم اللاعب</label>
+                        <input type="text" id="playerName" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">رمز اللاعب</label>
+                        <input type="text" id="playerCode" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">مركز اللاعب</label>
+                        <select id="playerPosition" class="form-select" required>
+                            <option value="">اختر المركز</option>
+                            <option value="حارس مرمى">حارس مرمى</option>
+                            <option value="مدافع">مدافع</option>
+                            <option value="خط وسط">خط وسط</option>
+                            <option value="مهاجم">مهاجم</option>
+                            <option value="جناح">جناح</option>
+                            <option value="رأس حربة">رأس حربة</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">رقم القميص</label>
+                        <input type="number" id="playerNumber" class="form-input" min="1" max="99" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">وصف اللاعب</label>
+                        <textarea id="playerDescription" class="form-textarea" placeholder="وصف مختصر عن اللاعب..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-full">
+                        <i class="fas fa-plus"></i>
+                        إضافة اللاعب
+                    </button>
+                </form>
+            </div>
+
+            <!-- Manage Players Card -->
+            <div class="admin-card">
+                <h3 class="card-title">
+                    <i class="fas fa-users-cog"></i>
+                    إدارة اللاعبين
+                </h3>
+                
+                <div class="players-list" id="playersList">
+                    <!-- Players will be loaded here -->
+                </div>
+                
+                <button onclick="loadPlayers()" class="btn btn-full" style="margin-top: 15px;">
+                    <i class="fas fa-sync-alt"></i>
+                    تحديث القائمة
+                </button>
+            </div>
+
+            <!-- Send Notification Card -->
+            <div class="admin-card">
+                <h3 class="card-title">
+                    <i class="fas fa-bullhorn"></i>
+                    إرسال إشعار
+                </h3>
+                
+                <form id="notificationForm">
+                    <div class="form-group">
+                        <label class="form-label">عنوان الإشعار</label>
+                        <input type="text" id="notificationTitle" class="form-input" placeholder="عنوان الإشعار">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">محتوى الإشعار</label>
+                        <textarea id="notificationMessage" class="form-textarea" placeholder="اكتب محتوى الإشعار..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">نوع الإشعار</label>
+                        <select id="notificationType" class="form-select">
+                            <option value="announcement">إعلان</option>
+                            <option value="match">مباراة</option>
+                            <option value="training">تدريب</option>
+                            <option value="celebration">احتفال</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-full">
+                        <i class="fas fa-paper-plane"></i>
+                        إرسال للجميع
+                    </button>
+                </form>
+            </div>
+
+            <!-- Match Management Card -->
+            <div class="admin-card">
+                <h3 class="card-title">
+                    <i class="fas fa-futbol"></i>
+                    إدارة المباريات
+                </h3>
+                
+                <form id="matchForm">
+                    <div class="form-group">
+                        <label class="form-label">الفريق المنافس</label>
+                        <input type="text" id="opponentTeam" class="form-input" placeholder="اسم الفريق المنافس">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">تاريخ المباراة</label>
+                        <input type="datetime-local" id="matchDate" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">مكان المباراة</label>
+                        <input type="text" id="matchLocation" class="form-input" placeholder="ملعب المباراة">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">نوع المباراة</label>
+                        <select id="matchType" class="form-select">
+                            <option value="ودية">مباراة ودية</option>
+                            <option value="دوري رمضان">دوري رمضان</option>
+                            <option value="كوشة">بطولة الكوشة</option>
+                            <option value="كأس">كأس</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-full">
+                        <i class="fas fa-save"></i>
+                        حفظ معلومات المباراة
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBUip9Y8Bo2Mp526aYvRAamFFmmzcDkKW0",
+            authDomain: "fc-wolves-team-app.firebaseapp.com",
+            databaseURL: "https://fc-wolves-team-app-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "fc-wolves-team-app",
+            storageBucket: "fc-wolves-team-app.firebasestorage.app",
+            messagingSenderId: "21060232227",
+            appId: "1:21060232227:web:fc79467f3d299e070e7d96"
+        };
+
+        // Initialize Firebase
+        let db;
+        try {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+            console.log('🔥 Firebase initialized successfully!');
+        } catch (error) {
+            console.error('Firebase initialization failed:', error);
+        }
+
+        // Show message
+        function showMessage(type, text) {
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            // Hide both messages first
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+            
+            if (type === 'success') {
+                document.getElementById('successText').textContent = text;
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 3000);
+            } else if (type === 'error') {
+                document.getElementById('errorText').textContent = text;
+                errorMsg.style.display = 'block';
+                setTimeout(() => {
+                    errorMsg.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // Add player
+        async function addPlayer(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('playerName').value.trim();
+            const code = document.getElementById('playerCode').value.trim();
+            const position = document.getElementById('playerPosition').value;
+            const number = parseInt(document.getElementById('playerNumber').value);
+            const description = document.getElementById('playerDescription').value.trim();
+            
+            if (!name || !code || !position || !number) {
+                showMessage('error', 'يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+
+            try {
+                const player = {
+                    id: Date.now().toString(),
+                    name: name,
+                    code: code,
+                    position: position,
+                    number: number,
+                    description: description || 'لاعب في فريق FC Wolves',
+                    image: 'https://via.placeholder.com/150',
+                    joinDate: new Date().toISOString().split('T')[0],
+                    matches: 0,
+                    goals: 0,
+                    assists: 0,
+                    yellowCards: 0,
+                    redCards: 0
+                };
+
+                // Save to Firebase
+                if (db) {
+                    await db.ref('players').child(player.id).set(player);
+                    console.log('Player saved to Firebase');
+                }
+
+                // Save to localStorage as backup
+                const players = JSON.parse(localStorage.getItem('players') || '[]');
+                players.push(player);
+                localStorage.setItem('players', JSON.stringify(players));
+
+                showMessage('success', `تم إضافة اللاعب ${name} بنجاح!`);
+                
+                // Reset form
+                document.getElementById('addPlayerForm').reset();
+                
+                // Reload players list
+                loadPlayers();
+
+            } catch (error) {
+                console.error('Error adding player:', error);
+                showMessage('error', 'حدث خطأ أثناء إضافة اللاعب');
+            }
+        }
+
+        // Load players
+        async function loadPlayers() {
+            const playersList = document.getElementById('playersList');
+            const loading = document.getElementById('loading');
+            
+            loading.style.display = 'block';
+            playersList.innerHTML = '';
+
+            try {
+                let players = [];
+
+                // Try to load from Firebase first
+                if (db) {
+                    const snapshot = await db.ref('players').once('value');
+                    const firebasePlayers = snapshot.val();
+                    if (firebasePlayers) {
+                        players = Object.values(firebasePlayers);
+                    }
+                }
+
+                // Fallback to localStorage
+                if (players.length === 0) {
+                    players = JSON.parse(localStorage.getItem('players') || '[]');
+                }
+
+                // Add default player if no players exist
+                if (players.length === 0) {
+                    const defaultPlayer = {
+                        id: 'jihad001',
+                        name: 'جهاد الغرياني',
+                        code: '0011JM',
+                        position: 'رأس حربة',
+                        number: 9,
+                        description: 'رأس حربة فتاك ومهاجم خطير',
+                        image: 'https://via.placeholder.com/150',
+                        joinDate: '2024-01-01',
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        yellowCards: 0,
+                        redCards: 0
+                    };
+
+                    players.push(defaultPlayer);
+                    
+                    // Save to both Firebase and localStorage
+                    if (db) {
+                        await db.ref('players').child(defaultPlayer.id).set(defaultPlayer);
+                    }
+                    localStorage.setItem('players', JSON.stringify(players));
+                }
+
+                // Display players
+                if (players.length === 0) {
+                    playersList.innerHTML = '<div style="text-align: center; padding: 20px; color: #94a3b8;">لا يوجد لاعبين مسجلين</div>';
+                } else {
+                    players.forEach(player => {
+                        const playerItem = document.createElement('div');
+                        playerItem.className = 'player-item';
+                        playerItem.innerHTML = `
+                            <div class="player-info">
+                                <img src="${player.image}" alt="${player.name}" class="player-avatar">
+                                <div class="player-details">
+                                    <h4>${player.name}</h4>
+                                    <p>${player.position} - رقم ${player.number} - رمز: ${player.code}</p>
+                                </div>
+                            </div>
+                            <div class="player-actions">
+                                <button onclick="deletePlayer('${player.id}')" class="btn btn-danger btn-small">
+                                    <i class="fas fa-trash"></i>
+                                    حذف
+                                </button>
+                            </div>
+                        `;
+                        playersList.appendChild(playerItem);
+                    });
+                }
+
+            } catch (error) {
+                console.error('Error loading players:', error);
+                showMessage('error', 'حدث خطأ أثناء تحميل اللاعبين');
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // Delete player
+        async function deletePlayer(playerId) {
+            if (!confirm('هل أنت متأكد من حذف هذا اللاعب؟')) {
+                return;
+            }
+
+            try {
+                // Delete from Firebase
+                if (db) {
+                    await db.ref('players').child(playerId).remove();
+                }
+
+                // Delete from localStorage
+                const players = JSON.parse(localStorage.getItem('players') || '[]');
+                const updatedPlayers = players.filter(p => p.id !== playerId);
+                localStorage.setItem('players', JSON.stringify(updatedPlayers));
+
+                showMessage('success', 'تم حذف اللاعب بنجاح');
+                loadPlayers();
+
+            } catch (error) {
+                console.error('Error deleting player:', error);
+                showMessage('error', 'حدث خطأ أثناء حذف اللاعب');
+            }
+        }
+
+        // Send notification
+        async function sendNotification(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('notificationTitle').value.trim();
+            const message = document.getElementById('notificationMessage').value.trim();
+            const type = document.getElementById('notificationType').value;
+            
+            if (!title || !message) {
+                showMessage('error', 'يرجى ملء عنوان ومحتوى الإشعار');
+                return;
+            }
+
+            try {
+                const notification = {
+                    id: Date.now().toString(),
+                    title: title,
+                    message: message,
+                    type: type,
+                    timestamp: new Date().toISOString(),
+                    from: 'المدرب'
+                };
+
+                // Save to Firebase
+                if (db) {
+                    await db.ref('notifications').child(notification.id).set(notification);
+                }
+
+                // Save to localStorage as backup
+                const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+                notifications.unshift(notification);
+                localStorage.setItem('notifications', JSON.stringify(notifications));
+
+                showMessage('success', 'تم إرسال الإشعار بنجاح!');
+                document.getElementById('notificationForm').reset();
+
+            } catch (error) {
+                console.error('Error sending notification:', error);
+                showMessage('error', 'حدث خطأ أثناء إرسال الإشعار');
+            }
+        }
+
+        // Update match info
+        async function updateMatchInfo(event) {
+            event.preventDefault();
+            
+            const opponent = document.getElementById('opponentTeam').value.trim();
+            const date = document.getElementById('matchDate').value;
+            const location = document.getElementById('matchLocation').value.trim();
+            const type = document.getElementById('matchType').value;
+            
+            if (!opponent || !date || !location) {
+                showMessage('error', 'يرجى ملء جميع معلومات المباراة');
+                return;
+            }
+
+            try {
+                const matchInfo = {
+                    opponent: opponent,
+                    date: date,
+                    location: location,
+                    type: type,
+                    updatedAt: new Date().toISOString()
+                };
+
+                // Save to Firebase
+                if (db) {
+                    await db.ref('matchInfo').set(matchInfo);
+                }
+
+                // Save to localStorage as backup
+                localStorage.setItem('matchInfo', JSON.stringify(matchInfo));
+
+                showMessage('success', 'تم حفظ معلومات المباراة بنجاح!');
+
+            } catch (error) {
+                console.error('Error updating match info:', error);
+                showMessage('error', 'حدث خطأ أثناء حفظ معلومات المباراة');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('addPlayerForm').addEventListener('submit', addPlayer);
+        document.getElementById('notificationForm').addEventListener('submit', sendNotification);
+        document.getElementById('matchForm').addEventListener('submit', updateMatchInfo);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPlayers();
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Wolves - تسجيل الدخول</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
+    
+    <!-- Arabic Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="team-logo">
+            <img src="images/logo.png" alt="FC Wolves Logo" id="teamLogo">
+        </div>
+        
+        <h1 class="team-name">FC WOLVES</h1>
+        <h2 class="team-subtitle">فريق الذئاب الأسطوري</h2>
+        <p class="team-slogan">الكوشه وطن و الوطن لا يُخان 😂💪</p>
+
+        <!-- Error/Success Messages -->
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+            <input 
+                type="text" 
+                id="accessCode" 
+                name="accessCode" 
+                placeholder="أدخل رمز الدخول" 
+                class="input-field"
+                autocomplete="off"
+                required
+            >
+            
+            <button type="submit" id="loginButton" class="btn" disabled>
+                <i class="fas fa-sign-in-alt"></i>
+                دخول
+            </button>
+        </form>
+
+        <!-- Login Info -->
+        <div class="login-info">
+            <p>
+                <i class="fas fa-info-circle"></i>
+                استخدم رمز الدخول الخاص بك للوصول إلى منطقتك
+            </p>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading" id="loading" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>جاري التحميل...</p>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
+
